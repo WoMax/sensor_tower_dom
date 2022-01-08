@@ -74,7 +74,7 @@ class SensorTowerSpider(scrapy.Spider, mixins.UrlsMixin, mixins.MatchingMixin):
         browser = await pyppeteer.launch()
         page = await browser.newPage()
         await page.goto(url)
-        await page.xpath("//input[@id=\"app-search-input\"]")
+        await page.waitForXPath("//input[@id=\"app-search-input\"]")
         await page.keyboard.type(str(app_id))
         await page.waitForXPath("//span[@class=\"autocomplete-name\"]")
         await page.click("span[class=\"autocomplete-name\"]")
