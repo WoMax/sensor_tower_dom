@@ -29,8 +29,8 @@ class SensorTowerSpider(scrapy.Spider, mixins.UrlsMixin, mixins.MatchingMixin):
         data = response.json()
         total_items = data["meta"]["total_count"]
         game_name = w3lib_url.url_query_parameter(response.url, "term")
-        offset = int(w3lib_url.url_query_parameter(response.url, "offset"))
-        is_first_page = offset == 0
+        offset = w3lib_url.url_query_parameter(response.url, "offset")
+        is_first_page = offset == "0"
 
         if is_first_page and total_items > constants.ITEMS_PER_PAGE:
             yield from self.parse_next_pages(response.url, total_items)
